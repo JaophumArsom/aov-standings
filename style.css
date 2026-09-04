@@ -1,0 +1,291 @@
+/* ============================================================
+   อารีน่า 5v5 — ธีมขาว / ฟ้าอ่อน (#38BDF8 เด่น) / น้ำเงินเข้ม (#1E3A8A)
+   ============================================================ */
+
+body {
+  font-family: 'IBM Plex Sans Thai', 'Prompt', sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ---------- Card (light glass) ---------- */
+.glass {
+  background: rgba(255, 255, 255, 0.86);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(226, 232, 240, 0.9);
+  box-shadow: 0 1px 3px rgba(15, 23, 42, 0.04), 0 8px 24px -12px rgba(15, 23, 42, 0.12);
+}
+
+/* ---------- Nav ---------- */
+.nav-glass {
+  background: rgba(255, 255, 255, 0.86);
+  backdrop-filter: blur(14px);
+}
+
+/* Bottom nav (มือถือ) */
+.bottom-nav-glass {
+  background: rgba(255, 255, 255, 0.92);
+  backdrop-filter: blur(14px);
+}
+.b-nav-btn {
+  color: rgb(100 116 139);
+}
+.b-nav-btn:hover {
+  background: rgba(56, 189, 248, 0.08);
+}
+.b-nav-btn.b-nav-active {
+  color: #1E3A8A;
+  background: rgba(56, 189, 248, 0.12);
+}
+
+/* ---------- Tab buttons ---------- */
+.tab-btn {
+  color: rgb(71 85 105);
+}
+.tab-btn:hover {
+  background: rgba(56, 189, 248, 0.08);
+  color: rgb(15 23 42);
+}
+.tab-btn.tab-active {
+  background: rgba(56, 189, 248, 0.16);
+  color: #1E3A8A;
+  box-shadow: inset 0 0 0 1px rgba(56, 189, 248, 0.45);
+}
+
+/* ---------- Inputs ---------- */
+.input-glow {
+  background: #ffffff;
+  border: 1px solid rgb(203 213 225);
+  border-radius: 0.75rem;
+  padding: 0.55rem 0.9rem;
+  color: rgb(15 23 42);
+  transition: all 0.15s ease;
+  outline: none;
+}
+.input-glow:focus {
+  border-color: #38BDF8;
+  box-shadow: 0 0 0 3px rgba(56, 189, 248, 0.2);
+}
+.input-glow::placeholder {
+  color: rgb(148 163 184);
+}
+select.input-glow option {
+  background: #ffffff;
+  color: #0f172a;
+}
+
+/* ---------- Format buttons (ตั้งค่า) ---------- */
+.format-btn {
+  color: rgb(71 85 105);
+}
+.format-btn:hover {
+  color: rgb(15 23 42);
+  background: rgba(56, 189, 248, 0.1);
+}
+.format-btn.format-active {
+  background: #38BDF8;
+  color: #ffffff;
+  box-shadow: 0 4px 14px rgba(56, 189, 248, 0.4);
+}
+
+/* ---------- Color swatches ---------- */
+.color-swatch {
+  box-shadow: inset 0 0 0 1px rgba(15, 23, 42, 0.18);
+  transition: transform 0.12s ease;
+}
+.color-swatch:hover {
+  transform: scale(1.08);
+}
+.color-swatch.swatch-active {
+  box-shadow: 0 0 0 2px rgba(255, 255, 255, 1), 0 0 0 5px rgba(30, 64, 175, 0.25);
+  transform: scale(1.08);
+}
+
+/* ---------- Logo upload label ---------- */
+.logo-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.45rem 0.9rem;
+  border-radius: 0.7rem;
+  font-weight: 700;
+  font-size: 0.85rem;
+  color: #0369a1;
+  background: rgba(56, 189, 248, 0.12);
+  border: 1px solid rgba(56, 189, 248, 0.5);
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+.logo-label:hover {
+  background: rgba(56, 189, 248, 0.2);
+}
+
+/* ---------- Match result preview strip ---------- */
+.match-preview {
+  background: rgba(56, 189, 248, 0.1);
+  border: 1px solid rgba(56, 189, 248, 0.4);
+  color: #0369a1;
+}
+
+/* ---------- Game picker (เลือกผู้ชนะรายเกม) ---------- */
+.gp-btn {
+  background: #ffffff;
+  color: rgb(71 85 105);
+  border: 1px solid rgb(226 232 240);
+  transition: all 0.12s ease;
+}
+.gp-btn:hover {
+  border-color: rgba(56, 189, 248, 0.6);
+  background: rgba(56, 189, 248, 0.06);
+  color: rgb(15 23 42);
+}
+.gp-btn.gp-active {
+  background: rgba(56, 189, 248, 0.16);
+  border-color: #38BDF8;
+  color: #1E3A8A;
+  font-weight: 700;
+  box-shadow: 0 0 0 2px rgba(56, 189, 248, 0.3);
+}
+
+/* ---------- Table hover ---------- */
+.table-row-hover:hover {
+  background: rgba(56, 189, 248, 0.06);
+}
+
+/* ---------- Modal ---------- */
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 50;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+  background: rgba(15, 23, 42, 0.38);
+  backdrop-filter: blur(5px);
+}
+.modal-card {
+  background: #ffffff;
+  border: 1px solid rgb(226 232 240);
+  border-radius: 1.25rem;
+  padding: 1.5rem;
+  box-shadow: 0 24px 60px rgba(15, 23, 42, 0.28);
+  animation: pop 0.18s ease-out;
+  max-height: 90vh;
+  overflow-y: auto;
+}
+.modal-overlay.hidden, .modal-card.hidden {
+  display: none !important;
+}
+
+/* ---------- Confirm buttons ---------- */
+.btn-ghost {
+  background: rgb(241 245 249);
+  color: rgb(51 65 85);
+  border: 1px solid rgb(203 213 225);
+}
+.btn-ghost:hover {
+  background: rgb(226 232 240);
+}
+.btn-danger {
+  background: rgba(239, 68, 68, 0.1);
+  color: #dc2626;
+  border: 1px solid rgba(239, 68, 68, 0.4);
+}
+.btn-danger:hover {
+  background: rgba(239, 68, 68, 0.18);
+}
+.btn-warn {
+  background: rgba(56, 189, 248, 0.12);
+  color: #0369a1;
+  border: 1px solid rgba(56, 189, 248, 0.5);
+}
+.btn-warn:hover {
+  background: rgba(56, 189, 248, 0.2);
+}
+
+/* ---------- Button press feedback ---------- */
+.btn-press {
+  transition: transform 0.08s ease, background 0.15s ease, box-shadow 0.15s ease;
+}
+.btn-press:active {
+  transform: scale(0.96);
+}
+.btn-press:focus-visible {
+  outline: 2px solid #38BDF8;
+  outline-offset: 2px;
+}
+
+/* ---------- Icon buttons (แก้ไข / ลบ) ---------- */
+.icon-btn {
+  color: rgb(100 116 139);
+  background: rgba(241, 245, 249, 0.9);
+  border: 1px solid rgb(226 232 240);
+}
+.icon-btn:hover {
+  color: #1E3A8A;
+  background: rgba(186, 230, 253, 0.5);
+  border-color: rgba(56, 189, 248, 0.5);
+}
+.icon-btn.del {
+  color: rgb(220 38 38);
+  background: rgba(254, 242, 242, 0.9);
+  border-color: rgb(254 226 226);
+}
+.icon-btn.del:hover {
+  color: #b91c1c;
+  background: rgba(254, 226, 226, 0.9);
+  border-color: rgba(239, 68, 68, 0.4);
+}
+
+/* ---------- Toast ---------- */
+.toast-slide {
+  animation: slideIn 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+@keyframes slideIn {
+  from { transform: translateX(30px); opacity: 0; }
+  to { transform: translateX(0); opacity: 1; }
+}
+
+/* ---------- Scrollbar ---------- */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: rgba(15, 23, 42, 0.18);
+  border-radius: 999px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(15, 23, 42, 0.3);
+}
+
+/* ---------- Color inputs dark-scheme off (native) ---------- */
+input[type="color"] {
+  -webkit-appearance: none;
+  appearance: none;
+  border: none;
+  padding: 0;
+  background: transparent;
+}
+input[type="color"]::-webkit-color-swatch-wrapper {
+  padding: 2px;
+}
+input[type="color"]::-webkit-color-swatch {
+  border-radius: 0.5rem;
+  border: 1px solid rgb(203 213 225);
+}
+
+/* ---------- Number input dark mode ---------- */
+@media (prefers-color-scheme: dark) {
+  input[type="date"], input[type="number"] {
+    color-scheme: dark;
+  }
+}
+
+/* ---------- Color dots (ชนะ/เสมอ/แพ้) ---------- */
+.dot-stat {
+  vertical-align: 0.5px;
+}

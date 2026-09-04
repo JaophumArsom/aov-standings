@@ -1,0 +1,13 @@
+{
+  "name": "aov-standings",
+  "version": "1.0.0",
+  "private": true,
+  "description": "ตารางคะแนน Arena of Valor (AoV) — หน้าบ้าน/หลังบ้าน",
+  "scripts": {
+    "start": "vercel dev",
+    "deploy": "vercel --prod"
+  },
+  "devDependencies": {
+    "vercel": "^34"
+  }
+}

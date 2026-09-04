@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#38BDF8">
+<title>ตารางคะแนน By Phummeei</title>
+
+<!-- Tailwind CSS CDN -->
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+  tailwind.config = {
+    theme: {
+      extend: {
+        colors: {
+          accent: '#38BDF8',
+          accentSoft: '#7DD3FC',
+          accentDark: '#0EA5E9',
+          navy: { 900: '#0F2A52', 800: '#1E3A8A', 700: '#1E40AF', 600: '#1D4ED8' },
+          win: '#22C55E',
+          draw: '#F59E0B',
+          loss: '#EF4444',
+        },
+        fontFamily: { thai: ["'IBM Plex Sans Thai'", "'Prompt'", "sans-serif"] },
+        animation: { 'fade-in': 'fadeIn .3s ease-out', 'pop': 'pop .18s ease-out' },
+        keyframes: {
+          fadeIn: { 'from': { opacity: '0', transform: 'translateY(6px)' }, 'to': { opacity: '1', transform: 'translateY(0)' } },
+          pop: { 'from': { transform: 'scale(.95)', opacity: '.5' }, 'to': { transform: 'scale(1)', opacity: '1' } },
+        },
+      }
+    }
+  }
+</script>
+
+<!-- Google Fonts: IBM Plex Sans Thai -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Thai:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+<link rel="stylesheet" href="style.css">
+
+<!-- Firebase (ข้อมูลกลาง) -->
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-database-compat.js"></script>
+<script src="firebase_config.js"></script>
+</head>
+
+<body class="bg-gradient-to-b from-sky-50 via-white to-white text-slate-800 font-thai min-h-screen">
+
+<!-- ===== หน้าบ้าน: Navbar (แสดงเท่านั้น) ===== -->
+<header class="sticky top-0 z-40 nav-glass border-b border-slate-200">
+  <div class="max-w-6xl mx-auto px-4 h-16 flex items-center justify-between gap-3">
+    <div class="flex items-center gap-2.5 shrink-0">
+      <img src="pic/S__4055049.jpg" alt="โลโก้" class="w-10 h-10 rounded-xl object-cover shadow-sm ring-1 ring-slate-200">
+      <div class="leading-tight hidden sm:block">
+        <div class="font-bold text-lg text-navy-900">SAAT ESPORT</div>
+        <div id="navLeague" class="text-[11px] text-sky-600 -mt-0.5 truncate max-w-[180px] sm:max-w-[280px]">ROV CUP 2026 ครั้งที่ 1</div>
+      </div>
+    </div>
+    <div class="flex items-center gap-1">
+      <span id="liveDot" class="inline-flex items-center gap-1 px-2 py-1 rounded-full bg-emerald-50 border border-emerald-200 text-emerald-700 text-[11px] font-semibold">
+        <span class="relative flex h-2 w-2"><span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span><span class="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span></span>
+        สด
+      </span>
+    </div>
+  </div>
+</header>
+
+<main class="max-w-6xl mx-auto px-4 py-6 pb-20">
+
+  <!-- ===== VIEW: ตารางคะแนน (อ่านอย่างเดียว) ===== -->
+  <section id="view-standings" class="animate-fade-in">
+    <div class="flex flex-wrap items-end justify-between gap-3 mb-3">
+      <div>
+        <h1 class="text-2xl font-bold text-navy-900">ตารางคะแนน</h1>
+        <p id="standingsSubtitle" class="text-sm text-slate-500 mt-1"></p>
+      </div>
+      <button id="toggleDetailBtn" onclick="toggleStandingsDetail()" class="btn-press hidden items-center gap-1.5 bg-white hover:bg-slate-100 text-slate-600 font-semibold px-3 py-2 rounded-xl border border-slate-300 transition text-sm">ดูรายละเอียด</button>
+    </div>
+    <div id="groupChips" class="flex flex-wrap gap-1.5 mb-4"></div>
+    <div id="standingsBody"></div>
+    <p class="text-center text-[11px] text-slate-300 mt-6">ข้อมูลตารางคะแนน · อัปเดตอัตโนมัติเมื่อเปิดหน้านี้</p>
+  </section>
+</main>
+
+<!-- ===== TOAST (สำรอง) ===== -->
+<div id="toast" class="fixed top-4 right-4 z-50 hidden"></div>
+
+<!-- ทางเข้าหลังบ้าน (เบา ๆ มุมขวาล่าง) -->
+<a href="admin.html" title="เข้าหลังบ้าน"
+   class="fixed bottom-4 right-4 z-40 inline-flex items-center justify-center w-10 h-10 rounded-full bg-white/70 border border-slate-200 shadow-sm text-slate-300 hover:text-navy-800 hover:bg-white transition">
+  <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.7 1.7 0 0 0 .3 1.9l.1.1a2 2 0 1 1-2.8 2.8l-.1-.1a1.7 1.7 0 0 0-1.9-.3 1.7 1.7 0 0 0-1 1.5V21a2 2 0 1 1-4 0v-.1a1.7 1.7 0 0 0-1-1.5 1.7 1.7 0 0 0-1.9.3l-.1.1a2 2 0 1 1-2.8-2.8l.1-.1a1.7 1.7 0 0 0 .3-1.9 1.7 1.7 0 0 0-1.5-1H3a2 2 0 1 1 0-4h.1a1.7 1.7 0 0 0 1.5-1 1.7 1.7 0 0 0-.3-1.9l-.1-.1a2 2 0 1 1 2.8-2.8l.1.1a1.7 1.7 0 0 0 1.9.3h.1a1.7 1.7 0 0 0 1-1.5V3a2 2 0 1 1 4 0v.1a1.7 1.7 0 0 0 1 1.5h.1a1.7 1.7 0 0 0 1.9-.3l.1-.1a2 2 0 1 1 2.8 2.8l-.1.1a1.7 1.7 0 0 0-.3 1.9v.1a1.7 1.7 0 0 0 1.5 1H21a2 2 0 1 1 0 4h-.1a1.7 1.7 0 0 0-1.5 1Z"/></svg>
+</a>
+
+<script src="app.js"></script>
+<script>window.PAGE_MODE = 'public';</script>
+</body>
+</html>
