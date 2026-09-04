@@ -356,8 +356,9 @@ function renderAll() {
 }
 
 function updateNavLeague() {
-  const s = loadState().settings;
-  document.getElementById('navLeague').textContent = s.leagueName || 'ตั้งชื่อลีกในหน้าตั้งค่า';
+  // ชื่อลีกล็อกตายตัว (ไม่ให้แก้ผ่านตั้งค่า)
+  const el = document.getElementById('navLeague');
+  if (el) el.textContent = 'ROV CUP 2026 ครั้งที่ 1';
 }
 
 /* ========== RENDERING HELPERS ========== */
@@ -449,7 +450,7 @@ function renderStandings() {
   // chips กรองกลุ่ม
   const chipsEl = document.getElementById('groupChips');
   if (!hasGroups) {
-    chipsEl.innerHTML = '<p class="text-sm text-slate-400">ยังไม่มีกลุ่ม — สร้างกลุ่มได้ในหน้า <button onclick="switchTab(\'settings\')" class="text-accentDark font-semibold underline underline-offset-2">ตั้งค่า</button></p>';
+    chipsEl.innerHTML = '';
   } else {
     const chip = (val, label, color) =>
       `<button onclick="setGroupFilter('${val}')" class="${standingsFilterGroup === val ? 'chip-active' : ''} group-chip px-3 py-1.5 rounded-full text-sm font-semibold transition">${color ? groupChipDot(color) : ''}${label}</button>`;
@@ -704,7 +705,6 @@ function renderSettings() {
 
 function renderSettingsForm() {
   const s = loadState().settings;
-  document.getElementById('setLeague').value = s.leagueName || '';
   document.getElementById('setPtWin').value = s.points.win;
   document.getElementById('setPtDraw').value = s.points.draw;
   document.getElementById('setPtLoss').value = s.points.loss;
@@ -721,12 +721,11 @@ function pickFormat(fmt) {
 
 function saveSettingsForm() {
   const state = loadState();
-  const leagueName = document.getElementById('setLeague').value.trim();
   const format = document.querySelector('#formatBtns .format-active')?.dataset.format || state.settings.format;
   const win = Math.max(0, parseInt(document.getElementById('setPtWin').value) || 0);
   const draw = Math.max(0, parseInt(document.getElementById('setPtDraw').value) || 0);
   const loss = Math.max(0, parseInt(document.getElementById('setPtLoss').value) || 0);
-  state.settings = { ...state.settings, leagueName, format, points: { win, draw, loss } };
+  state.settings = { ...state.settings, format, points: { win, draw, loss } };
   saveState(state);
   renderAll();
   showToast('บันทึกการตั้งค่าเรียบร้อย', 'success');

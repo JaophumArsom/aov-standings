@@ -13,11 +13,11 @@
    ============================================================ */
 
 window.FIREBASE_CONFIG = {
-  apiKey: "YOUR_API_KEY",
-  authDomain: "YOUR_PROJECT.firebaseapp.com",
-  databaseURL: "https://YOUR_PROJECT-default-rtdb.firebaseio.com",
-  projectId: "YOUR_PROJECT",
-  storageBucket: "YOUR_PROJECT.appspot.com",
-  messagingSenderId: "YOUR_SENDER_ID",
-  appId: "YOUR_APP_ID"
+  apiKey: "AIzaSyD_FYKTMLN7AzHmqT_T-QuSs07msd0JbSo",
+  authDomain: "aov-standings.firebaseapp.com",
+  databaseURL: "https://aov-standings-default-rtdb.asia-southeast1.firebasedatabase.app",
+  projectId: "aov-standings",
+  storageBucket: "aov-standings.firebasestorage.app",
+  messagingSenderId: "555643523156",
+  appId: "1:555643523156:web:6011221e06eda8a7f79dc1",
 };
