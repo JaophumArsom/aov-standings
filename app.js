@@ -20,6 +20,7 @@ let fbApp = null;
 let fbDb = null;
 let fbReady = false;     // แน่ใจว่าเชื่อม Firebase ได้
 let cloudState = null;   // state ล่าสุดจาก Firebase (subscribe)
+let fbListener = null;   // reference ของ listener ที่ subscribe ไว้ (กันซ้ำ)
 
 function hasFirebase() {
   return typeof window !== 'undefined' && typeof window.firebase !== 'undefined';
